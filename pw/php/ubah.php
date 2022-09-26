@@ -34,10 +34,6 @@ if (isset($_POST['ubah'])) {
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +87,7 @@ if (isset($_POST['ubah'])) {
     </div>
 
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="../js/"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
     <script src="javascript/scriptphoto.js"></script>
 </body>
 

@@ -50,7 +50,7 @@ function upload()
     }
 
     //cek tipe file
-    if ($tipe_file != 'image/jpeg' && $tipe_file != 'image/png') {
+    if ($tipe_file != '../image/jpeg' && $tipe_file != '../image/png') {
         echo "<script>
      alert('wrong file upload, please try again!');
   </script>";
@@ -69,7 +69,7 @@ function upload()
     $nama_file_baru = uniqid();
     $nama_file_baru .= '.';
     $nama_file_baru .= $ekstensi_file;
-    move_uploaded_file($tmp_file, 'img/' . $nama_file_baru);
+    move_uploaded_file($tmp_file, '../assets/img' . $nama_file_baru);
 
     return $nama_file_baru;
 }
@@ -80,9 +80,9 @@ function tambah($buku)
 {
     $conn = koneksi();
 
-    $Judul = htmlspecialchars($buku['Judul']);
-    $Pengarang = htmlspecialchars($buku['Pengarang']);
-    $Penerbit = htmlspecialchars($buku['Penerbit']);
+    $judul = htmlspecialchars($buku['judul']);
+    $pengarang = htmlspecialchars($buku['pengarang']);
+    $penerbit = htmlspecialchars($buku['penerbit']);
     // $pict = htmlspecialchars($buku['pict']);
 
     //upload
@@ -93,7 +93,7 @@ function tambah($buku)
 
     $query = "INSERT INTO buku
                 VALUES
-                ('','$Judul','$Penerbit','$Pengarang','$cover')";
+                ('','$judul','$penerbit','$pengarang','$cover')";
 
 
     mysqli_query($conn, $query);
@@ -108,7 +108,7 @@ function hapus($id)
     $buku = query("SELECT * FROM buku WHERE id_buku =$id");
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     if ($buku['cover'] != 'nophoto.png') {
-        unlink('img/' . $buku['pict']);
+        unlink('../assets/img/' . $buku['pict']);
     }
 
 

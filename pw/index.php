@@ -50,7 +50,7 @@ if (isset($_POST['cari'])) {
           <th>Pengarang</th>
           <th>Penerbit</th>
           <th>Tanggal Rilis</th>
-          <th>Opsi</th>
+          <th class="center">Opsi</th>
         </tr>
       </thead>
       <?php foreach ($buku as $book) : ?>
