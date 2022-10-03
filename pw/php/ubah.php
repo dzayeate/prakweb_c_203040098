@@ -56,7 +56,7 @@ if (isset($_POST['ubah'])) {
             <input type="hidden" id="id_buku" name="id_buku" value="<?= $book['id_buku']; ?>">
             <div class="input-field">
                 <input type="text" name="judul_buku" id="judul_buku" class="validate" required value="<?= $book['judul_buku']; ?>">
-                <label for="judul_buku">judul_buku</label>
+                <label for="judul_buku">Judul Buku</label>
             </div>
             <div class="input-field">
                 <input type="text" name="penerbit" id="penerbit" class="validate" required value="<?= $book['penerbit']; ?>">
@@ -65,6 +65,10 @@ if (isset($_POST['ubah'])) {
             <div class="input-field">
                 <input type="text" name="pengarang" id="pengarang" class="validate" required value="<?= $book['pengarang']; ?>">
                 <label for="pengarang">Pengarang</label>
+            </div>
+            <div class="input-field">
+                <input type="text" name="tahun_terbit" id="tahun_terbit" class="validate" required value="<?= $book['tahun_terbit']; ?>">
+                <label for="tahun_terbit">Tahun Terbit</label>
             </div>
             <div class="file-field input-field">
                 <input type="hidden" name="gambar_lama" value="<?= $book['gambar'] ?>">
