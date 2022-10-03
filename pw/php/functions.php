@@ -50,7 +50,7 @@ function upload()
     }
 
     //cek tipe file
-    if ($tipe_file != '../image/jpeg' && $tipe_file != '../image/png') {
+    if ($tipe_file != '../assets/img/jpg' && $tipe_file != '../assets/img/png') {
         echo "<script>
      alert('wrong file upload, please try again!');
   </script>";
@@ -83,7 +83,7 @@ function tambah($buku)
     $judul = htmlspecialchars($buku['judul']);
     $pengarang = htmlspecialchars($buku['pengarang']);
     $penerbit = htmlspecialchars($buku['penerbit']);
-    // $pict = htmlspecialchars($buku['pict']);
+    $cover = htmlspecialchars($buku['cover']);
 
     //upload
     $cover = upload();
@@ -108,7 +108,7 @@ function hapus($id)
     $buku = query("SELECT * FROM buku WHERE id_buku =$id");
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     if ($buku['cover'] != 'nophoto.png') {
-        unlink('../assets/img/' . $buku['pict']);
+        unlink('../assets/img/' . $buku['cover']);
     }
 
 
@@ -123,9 +123,9 @@ function ubah($buku)
     $conn = koneksi();
 
     $id_buku = htmlspecialchars($buku['id_buku']);
-    $Judul = htmlspecialchars($buku['Judul']);
-    $Penerbit = htmlspecialchars($buku['Penerbit']);
-    $Pengarang = htmlspecialchars($buku['Pengarang']);
+    $Judul = htmlspecialchars($buku['judul']);
+    $Penerbit = htmlspecialchars($buku['penerbit']);
+    $Pengarang = htmlspecialchars($buku['pengarang']);
     $cover_lama = htmlspecialchars($buku['cover_lama']);
 
     $cover = upload();
@@ -138,9 +138,9 @@ function ubah($buku)
     }
 
     $query = "UPDATE buku SET
-            Judul ='$Judul',
-            Penerbit ='$Penerbit',
-            Pengarang = '$Pengarang',
+            judul ='$Judul',
+            penerbit ='$Penerbit',
+            pengarang = '$Pengarang',
             cover = '$cover'
             WHERE id_buku = '$id_buku'
     ";
