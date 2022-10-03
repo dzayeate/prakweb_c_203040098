@@ -26,23 +26,23 @@ function query($sql)
 
 function upload()
 {
-    $nama_file = $_FILES['cover']['name'];
-    $tipe_file = $_FILES['cover']['type'];
-    $ukuran_file = $_FILES['cover']['size'];
-    $error = $_FILES['cover']['error'];
-    $tmp_file = $_FILES['cover']['tmp_name'];
+    $nama_file = $_FILES['gambar']['name'];
+    $tipe_file = $_FILES['gambar']['type'];
+    $ukuran_file = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmp_file = $_FILES['gambar']['tmp_name'];
 
-    //ketika tidak ada cover
+    //ketika tidak ada gambar
     if ($error == 4) {
 
         return 'nophoto.png';
     }
 
     //cek ekstensi file 
-    $daftar_cover = ['jpg', 'jpeg', 'png'];
+    $daftar_gambar = ['jpg', 'jpeg', 'png', 'jfif'];
     $ekstensi_file = explode('.', $nama_file);
     $ekstensi_file = strtolower(end($ekstensi_file));
-    if (!in_array($ekstensi_file, $daftar_cover)) {
+    if (!in_array($ekstensi_file, $daftar_gambar)) {
         echo "<script>
      alert('wrong file upload, please try again!');
   </script>";
@@ -50,7 +50,7 @@ function upload()
     }
 
     //cek tipe file
-    if ($tipe_file != '../assets/img/jpg' && $tipe_file != '../assets/img/png') {
+    if ($tipe_file != 'image/jpeg' && $tipe_file != 'image/png' && $tipe_file != 'image/jfif') {
         echo "<script>
      alert('wrong file upload, please try again!');
   </script>";
@@ -69,7 +69,7 @@ function upload()
     $nama_file_baru = uniqid();
     $nama_file_baru .= '.';
     $nama_file_baru .= $ekstensi_file;
-    move_uploaded_file($tmp_file, '../assets/img' . $nama_file_baru);
+    move_uploaded_file($tmp_file, '../assets/img/' . $nama_file_baru);
 
     return $nama_file_baru;
 }
@@ -80,35 +80,37 @@ function tambah($buku)
 {
     $conn = koneksi();
 
-    $judul = htmlspecialchars($buku['judul']);
-    $pengarang = htmlspecialchars($buku['pengarang']);
+    $gambar = htmlspecialchars($buku['gambar']);
+    $judul_buku = htmlspecialchars($buku['judul_buku']);
+    $penulis = htmlspecialchars($buku['penulis']);
     $penerbit = htmlspecialchars($buku['penerbit']);
-    $cover = htmlspecialchars($buku['cover']);
+    $tahun_terbit = htmlspecialchars($buku['tahun_terbit']);
+    // $pict = htmlspecialchars($buku['pict']);
 
     //upload
-    $cover = upload();
-    if (!$cover) {
+    $Gambar = upload();
+    if (!$Gambar) {
         return false;
     }
 
     $query = "INSERT INTO buku
                 VALUES
-                ('','$judul','$penerbit','$pengarang','$cover')";
-
+                ('','$gambar', '$judul_buku', '$penulis', '$penerbit', '$tahun_terbit')";
 
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
 
+
 function hapus($id)
 {
     $conn = koneksi();
-    //menghapus cover di folder
+    //menghapus gambar di folder
     $buku = query("SELECT * FROM buku WHERE id_buku =$id");
     error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-    if ($buku['cover'] != 'nophoto.png') {
-        unlink('../assets/img/' . $buku['cover']);
+    if ($buku['gambar'] != 'nophoto.png') {
+        unlink('../assets/img/' . $buku['gambar']);
     }
 
 
@@ -123,25 +125,25 @@ function ubah($buku)
     $conn = koneksi();
 
     $id_buku = htmlspecialchars($buku['id_buku']);
-    $Judul = htmlspecialchars($buku['judul']);
+    $judul_buku = htmlspecialchars($buku['judul_buku']);
     $Penerbit = htmlspecialchars($buku['penerbit']);
     $Pengarang = htmlspecialchars($buku['pengarang']);
-    $cover_lama = htmlspecialchars($buku['cover_lama']);
+    $gambar_lama = htmlspecialchars($buku['gambar_lama']);
 
-    $cover = upload();
-    if (!$cover) {
+    $gambar = upload();
+    if (!$gambar) {
         return false;
     }
 
-    if ($cover == 'nophoto.png') {
-        $cover = $cover_lama;
+    if ($gambar == 'nophoto.png') {
+        $gambar = $gambar_lama;
     }
 
     $query = "UPDATE buku SET
-            judul ='$Judul',
+            judul_buku ='$judul_buku',
             penerbit ='$Penerbit',
             pengarang = '$Pengarang',
-            cover = '$cover'
+            gambar = '$gambar'
             WHERE id_buku = '$id_buku'
     ";
 
@@ -156,10 +158,10 @@ function cari($keyword)
 
     $query = "SELECT * FROM buku
             WHERE 
-            judul LIKE '%$keyword%' OR
+            judul_buku LIKE '%$keyword%' OR
             pengarang LIKE '%$keyword%' OR
             penerbit LIKE '%$keyword%' OR
-            tgl_rilis LIKE '%$keyword%' 
+            tahun_terbit LIKE '%$keyword%' 
            ";
 
     $result = mysqli_query($conn, $query);
