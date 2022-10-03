@@ -1,2 +1,2 @@
-# prakweb_c_203040098
+PRAKTIKUM WEB 2022
 Repository Mata Kuliah Praktikum Pemrograman Web Tahun Ajaran 2022
