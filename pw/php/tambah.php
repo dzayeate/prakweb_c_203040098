@@ -1,3 +1,11 @@
+<!-- 
+    NAMA : Agam Ramdhan Kamil Atmaja
+    NPM : 203040098
+    Kelas : C
+    Github : https://github.com/dzayeate
+    MataKuliah : Praktikum Web
+ -->
+
 <?php
 
 
