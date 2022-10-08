@@ -5,16 +5,17 @@ class App
   protected $controller = 'Home';
   protected $method = 'index';
   protected $params = [];
+
   public function __construct()
   {
     $url = $this->parseURL();
 
+    // controller
     if (file_exists('../app/controllers/' . $url[0] . '.php')) {
       $this->controller = $url[0];
       unset($url[0]);
     }
 
-    // controller
     require_once '../app/controllers/' . $this->controller . '.php';
     $this->controller = new $this->controller;
 
@@ -32,10 +33,9 @@ class App
     }
 
     // jalankan controller & method, serta kirimkan params jika ada
-    call_user_func_array([$this->controller, $this->method], $this->params);  
-
+    call_user_func_array([$this->controller, $this->method], $this->params);
   }
-  
+
   public function parseURL()
   {
     if (isset($_GET['url'])) {
