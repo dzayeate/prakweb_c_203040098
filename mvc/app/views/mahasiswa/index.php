@@ -6,17 +6,9 @@
         <h3>Daftar Mahasiswa</h3>
         <?php foreach ($data['mhs'] as $mhs) : ?>
           <ul class="list-group text-dark">
-            <li>
+            <li class="list-group-item list-group-item d-flex justify-content-between align-items-start">
               <?= $mhs['nama']; ?>
-            </li>
-            <li>
-              <?= $mhs['nrp']; ?>
-            </li>
-            <li>
-              <?= $mhs['email']; ?>
-            </li>
-            <li>
-              <?= $mhs['jurusan']; ?>
+              <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>" class="badge text-bg-dark float-right">Detail</a>
             </li>
           </ul>
         <?php endforeach; ?>
